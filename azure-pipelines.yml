@@ -1,14 +1,15 @@
 trigger:
 - main
 stages:
-  - stage: "Build"
+  - stage: "BuildDisk"
     displayName: "This is my Build"
     jobs:
       - job: buildjob
-        displayName: 'Build and Run Tests'
+        displayName: 'BuildDisk'
         steps:
-        - task: AzurePowerShell@5
+        - task: AzureCLI@2
           inputs:
-            azureSubscription: 'vimal-conn2025-june'
-            ScriptType: 'InlineScript'
-            Inline: 'echo "hello"'
+            azureSubscription: 'nov-azdevops25'
+            scriptType: 'bash'
+            scriptLocation: 'inlineScript'
+            inlineScript: 'az disk create -g rectus50009 -n azdisk1000 --size-gb 10 --location eastus2 --sku Standard_LRS'
